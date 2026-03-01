@@ -18,19 +18,19 @@ export default function Game() {
 
     gameRef.current.appendChild(k.canvas);
 
-    k.loadSprite("bg", "/forest.png");
+    k.loadSprite("bg", "forest.png");
 
-    k.loadSprite("wizzard0", "/wizard/wizzard_f_run_anim_f0.png");
-    k.loadSprite("wizzard1", "/wizard/wizzard_f_run_anim_f1.png");
-    k.loadSprite("wizzard2", "/wizard/wizzard_f_run_anim_f2.png");
-    k.loadSprite("wizzard3", "/wizard/wizzard_f_run_anim_f3.png");
+    k.loadSprite("wizzard0", "wizard/wizzard_f_run_anim_f0.png");
+    k.loadSprite("wizzard1", "wizard/wizzard_f_run_anim_f1.png");
+    k.loadSprite("wizzard2", "wizard/wizzard_f_run_anim_f2.png");
+    k.loadSprite("wizzard3", "wizard/wizzard_f_run_anim_f3.png");
 
-    k.loadSprite("necromancer0", "/necromancer/necromancer_anim_f0.png");
-    k.loadSprite("necromancer1", "/necromancer/necromancer_anim_f1.png");
-    k.loadSprite("necromancer2", "/necromancer/necromancer_anim_f2.png");
-    k.loadSprite("necromancer3", "/necromancer/necromancer_anim_f3.png");
+    k.loadSprite("necromancer0", "necromancer/necromancer_anim_f0.png");
+    k.loadSprite("necromancer1", "necromancer/necromancer_anim_f1.png");
+    k.loadSprite("necromancer2", "necromancer/necromancer_anim_f2.png");
+    k.loadSprite("necromancer3", "necromancer/necromancer_anim_f3.png");
 
-    k.loadSprite("explosion", "/effects/explosion.png", {
+    k.loadSprite("explosion", "effects/explosion.png", {
       sliceX: 9,
       sliceY: 1,
       anims: {
@@ -41,7 +41,7 @@ export default function Game() {
       }
     });
 
-    k.loadSprite("fire", "/effects/fire.png", {
+    k.loadSprite("fire", "effects/fire.png", {
       sliceX: 8,
       sliceY: 1,
       anims: {
@@ -52,7 +52,7 @@ export default function Game() {
       }
     });
 
-    k.loadSprite("dialog", "/dialog.png");
+    k.loadSprite("dialog", "dialog.png");
 
     const wizardFrames = ["wizzard0", "wizzard1", "wizzard2", "wizzard3"];
     const necromancerFrames = ["necromancer0", "necromancer1", "necromancer2", "necromancer3"];
@@ -284,12 +284,12 @@ export default function Game() {
       </p>
       <div style={{ display: "flex", gap: "0.5rem" }}>
         <img
-          src="/yes.png"
+          src="yes.png"
           onClick={() => (window as any).handleYes?.()}
           style={{ cursor: "pointer" }}
         />
         <img
-          src="/no.png"
+          src="no.png"
           onClick={() => (window as any).handleNo?.()}
           style={{ cursor: "pointer" }}
         />
