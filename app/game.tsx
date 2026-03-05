@@ -378,12 +378,31 @@ export default function Game() {
               src="enter.png"
               width={25}
               height={25}
-              onClick={() => {
+              onClick={async () => {
                 if (!selectedOption) {
                   alert("Bb please pick an option!");
                   return;
                 }
-                alert(`You selected: ${selectedOption}`);
+                try {
+                  const response = await fetch("https://hsn-be.vercel.app/send-message", {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ text: selectedOption }),
+                  });
+
+                  if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                  }
+
+                  const data = await response.json();
+                  console.log("Message sent successfully:", data);
+                  alert("Message sent!");
+                } catch (error) {
+                  console.error("Error sending message:", error);
+                  alert("Failed to send message.");
+                }
               }}
               style={{
                 cursor: "pointer",
