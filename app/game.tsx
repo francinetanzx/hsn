@@ -12,7 +12,7 @@ export default function Game() {
     "Ouch! That hurts!",
     "Bb.. how could you say no to me?",
     "Man woke up and chose violence huh?",
-    "You will be girlfriendless soon... jk I love you",
+    "You will be girlfriendless soon.. jk i <3 u",
     "Are you suuuure?",
     "I'll pretend I didn't hear that...",
     "Side quest declined. Emotional damage.",
