@@ -1,10 +1,25 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import kaplay from "kaplay";
 
 export default function Game() {
   const gameRef = useRef<HTMLDivElement>(null);
+  const [showForm, setShowForm] = useState(false);
+  const [selectedOption, setSelectedOption] = useState("");
+
+  const noMessages = [
+    "Ouch! That hurts!",
+    "Bb.. how could you say no to me?",
+    "Man woke up and chose violence huh?",
+    "You will be girlfriendless soon... jk I love you",
+    "Are you suuuure?",
+    "I'll pretend I didn't hear that...",
+    "Side quest declined. Emotional damage.",
+    "I respect the audacity.",
+    "The wizard is heartbroken...",
+    "The wizard is slightly disappointed...",
+  ];
 
   useEffect(() => {
     if (!gameRef.current) return;
@@ -117,6 +132,8 @@ export default function Game() {
       yesDialogText.hidden = true;
 
       function handleYes() {
+        setShowForm(true);
+
         // if prev. yes 
         const dialogYesElements = k.get("dialogYes");
 
@@ -152,6 +169,9 @@ export default function Game() {
       }
 
       function handleNo() {
+        const randomMessage =
+          noMessages[Math.floor(Math.random() * noMessages.length)];
+
         // if prev. yes 
         const dialogYesElements = k.get("dialogYes");
 
@@ -167,7 +187,9 @@ export default function Game() {
         dialogNoElements.forEach((obj) => {
           if (obj.hidden) {
             obj.hidden = !obj.hidden;
+
           }
+          obj.text = randomMessage;
         });
 
         const dialogElements = k.get("dialog");
@@ -192,6 +214,8 @@ export default function Game() {
 
       k.onKeyPress(["y", "n"], (key) => {
         if (key === "y") {
+          setShowForm(true);
+
           // if prev. yes 
           const dialogYesElements = k.get("dialogYes");
 
@@ -272,11 +296,11 @@ export default function Game() {
     <div
       style={{
         display: "flex",
-        flexDirection: "column", 
-        alignItems: "center", 
+        flexDirection: "column",
+        alignItems: "center",
         fontFamily: "PixelRegular",
         fontSize: "1rem",
-        gap: "1rem", 
+        gap: "1rem",
       }}
     >
       <p style={{ margin: 0, textAlign: "center" }}>
@@ -285,14 +309,113 @@ export default function Game() {
       <div style={{ display: "flex", gap: "0.5rem" }}>
         <img
           src="yes.png"
+          width={35}
+          height={35}
           onClick={() => (window as any).handleYes?.()}
           style={{ cursor: "pointer" }}
         />
+        <br></br>
         <img
           src="no.png"
+          width={35}
+          height={35}
           onClick={() => (window as any).handleNo?.()}
           style={{ cursor: "pointer" }}
         />
       </div>
+      {showForm && (
+        <div
+          style={{
+            marginTop: "1.5rem",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "0.75rem",
+          }}
+        >
+          <label
+            htmlFor="valentine-option"
+            style={{
+              fontFamily: "PixelRegular",
+              fontSize: "1rem",
+            }}
+          >
+            Where would you like to go for our date?
+          </label>
+          <label
+            htmlFor="valentine-option"
+            style={{
+              fontFamily: "PixelRegular",
+              fontSize: "0.75rem",
+            }}
+          >
+            If you want sth else, let me know!
+          </label>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "0.75rem",
+            }}
+          >
+            <select
+              id="valentine-option"
+              value={selectedOption}
+              onChange={(e) => setSelectedOption(e.target.value)}
+              style={{
+                padding: "0.5rem",
+                fontFamily: "PixelRegular",
+                border: "2px solid black",
+                backgroundColor: "white",
+              }}
+            >
+              <option value="">Select an option</option>
+              <option value="Lavo">Lavo</option>
+              <option value="Gangnam Ok">Gangnam Ok</option>
+              <option value="Ginkyō by Kinki">Ginkyō by Kinki</option>
+            </select>
+            <img
+              src="enter.png"
+              width={25}
+              height={25}
+              onClick={() => {
+                if (!selectedOption) {
+                  alert("Bb please pick an option!");
+                  return;
+                }
+                alert(`You selected: ${selectedOption}`);
+              }}
+              style={{
+                cursor: "pointer",
+              }}
+            />
+          </div>
+        </div>
+      )}
+      {selectedOption && (
+        <a
+          href={
+            selectedOption === "Lavo"
+              ? "https://share.google/QGL4qtY5fsATD98yU"
+              : selectedOption === "Gangnam Ok"
+                ? "https://share.google/75KDPt73vx5To05NE"
+                : "https://share.google/hJkxSUreihsHYVzxd"
+          }
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            marginTop: "0.5rem",
+            fontFamily: "PixelRegular",
+            textDecoration: "underline",
+            color: "blue",
+          }}
+        >
+          {selectedOption === "Lavo"
+            ? "Checkout Lavo!"
+            : selectedOption === "Gangnam Ok"
+              ? "Checkout Gangnam Ok!"
+              : "Checkout Ginkyō by Kinki!"}
+        </a>
+      )}
     </div></div>;
 }
